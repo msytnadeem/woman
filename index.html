@@ -1,0 +1,111 @@
+<html dir="rtl" data-whatinput="mouse" data-whatintent="mouse">
+   <head>
+      <link rel="stylesheet" href="assets/css/foundation.css">
+      <link href="https://db.onlinewebfonts.com/c/d78f5d2c76185fa07aaf8dd729eef33e?family=DIN+Next+LT+Arabic" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" href="assets/css/main.css">
+      <script src="jquery.js"></script>
+      <script src="html2canvas.js"></script>
+      <meta class="foundation-mq">
+   </head>
+   <body style="padding:20px;background-color: #e5eff1;">
+      <div class="grid-y" style="height: 100%;max-height: 1500px;">
+         <div class="cell large-1 medium-1 show-for-medium show-for-large">
+         </div>
+         <div class="cell large-10 medium-11">
+            <div class="grid-y web-mobile-toggler" style="width: 100%;height: 100%;">
+               <div class="cell large-6 medium-4 grid-y align-center" style="padding: 70px;">
+                  <div style="color: #004c7a;font-size: 72px" clas="cell medium-2">شاركِ معنا تجربتك و إنجازاتك</div>
+                  <div style="color: #004c7a;font-size: 32px;padding-top: 52px;padding-bottom: 52px;" clas="cell medium-2">عبري عن مشاعرك في يوم المرأة العالمي على التصميم المرفق ثم اضغطي على زر التحميل و شاركيها على مواقع التواصل الإجتماعي</div>
+               </div>
+               <div class="cell large-6 medium-8 align-middle" >
+                  <div class="cell medium-12 main-holder grid-x">
+                     <div class="cell large-1 medium-1" ></div>
+                     <div class="cell large-9 medium-9 grid-y" style="height: 100%;">
+                        <div class="cell large-2 medium-2"></div>
+                        <div class="cell large-2 medium-2 editable-div" data-placeholder="<إكتب إسمك هنا>" contenteditable="true">
+                        </div>
+                        <div class="cell large-6 medium-6 editable-div" data-placeholder="<إكتب انجازاتك هنا و ادعم المرأة>"  contenteditable="true">
+                        </div>
+                        <div class="cell large-2 medium-2"></div>
+                     </div>
+                     <div class="cell large-1 medium-2" style="height: 100%;"></div>
+                  </div>
+               </div>
+            </div>
+         </div>
+		<div class="grid-x cell large-1 medium-1 align-center align-middle">
+					
+		<div class="cell medium-2">
+				<a id="btn-Convert-Html2Image" class="button large" href="#">حملي مشاركتك الأن</a>
+				<a id="btn-download" style="display:none" href="#" download="your_pic_name.png">Download2</a>
+			</div>
+            
+         </div>
+      </div>
+      <script type="text/javascript">
+	  $(document).ready(function(){
+		
+	  var widthscreen = screen.width;
+	  var heightscreen = screen.height;
+	  
+	  (widthscreen > heightscreen) && $('.web-mobile-toggler').removeClass('grid-y').addClass('grid-x');
+	  (widthscreen < heightscreen) && $('.web-mobile-toggler').removeClass('grid-x').addClass('grid-y');
+	  
+		var ele1 = $($('.editable-div')[0]);
+		var ele2 = $($('.editable-div')[1]);
+		var placeholder1 = ele1.attr("data-placeholder");
+		var placeholder2 = ele2.attr("data-placeholder");
+		(ele1.html().trim() === '') && (ele1.html(placeholder1));	
+		(ele2.html().trim() === '') && (ele2.html(placeholder2));		
+	    ele1.on('focus', function(e) {	
+			var value = unescapeHtml(e.target.innerHTML);
+			value === placeholder1 && (e.target.innerHTML = '');
+		});
+
+		ele1.on('blur', function(e) {
+			var value = unescapeHtml(e.target.innerHTML);
+			value === '' && (e.target.innerHTML = placeholder1);
+		});
+	    ele2.on('focus', function(e) {
+			var value = unescapeHtml(e.target.innerHTML);
+			value === placeholder2 && (e.target.innerHTML = '');
+		});
+
+		ele2.on('blur', function(e) {
+			var value = unescapeHtml(e.target.innerHTML);
+			value === '' && (e.target.innerHTML = placeholder2);
+		});
+
+
+		$("#btn-Convert-Html2Image").on('click', function (e) {
+         	e.preventDefault()
+			$('.editable-div').attr('contenteditable', false);
+         	var element = $(".main-holder")[0];
+         	html2canvas(element).then(canvas => {
+         		canvas.direction = 'rtl';
+         		var imgageData = canvas.toDataURL("image/png");
+         		// Now browser starts downloading it instead of just showing it
+         		var newData = imgageData.replace(/^data:image\/png/, "data:application/octet-stream");
+         		$("#btn-download").attr("download", "your_pic_name.png").attr("href", newData);
+         		setTimeout($("#btn-download")[0].click(), 2000);
+         		$('.editable-div').attr('contenteditable', true);
+         	});
+         });
+
+			function unescapeHtml(safe) {
+				return safe.replace(/&amp;/g, '&')
+					.replace(/&lt;/g, '<')
+					.replace(/&gt;/g, '>')
+					.replace(/&quot;/g, '"')
+					.replace(/&#039;/g, "'");
+			}		 
+	  });
+         
+       
+
+
+      </script>
+      <script src="assets/js/vendor.js"></script>
+      <script src="assets/js/foundation.js"></script>
+   </body>
+</html>
