@@ -23,10 +23,11 @@
                      <div class="cell large-1 medium-1" ></div>
                      <div class="cell large-9 medium-9 grid-y" style="height: 100%;">
                         <div class="cell large-2 medium-2"></div>
+						<div class="cell large-6 medium-6 editable-div" data-placeholder="<أكتبي انجازاتك هنا و ادعمي المرأة>"  contenteditable="true">
+                        </div>
                         <div class="cell large-2 medium-2 editable-div" data-placeholder="<أكتبي اسمك هنا>" contenteditable="true">
                         </div>
-                        <div class="cell large-6 medium-6 editable-div" data-placeholder="<أكتبي انجازاتك هنا و ادعمي المرأة>"  contenteditable="true">
-                        </div>
+                        
                         <div class="cell large-2 medium-2"></div>
                      </div>
                      <div class="cell large-1 medium-2" style="height: 100%;"></div>
@@ -95,7 +96,7 @@
 				a.href = getshot.src;
 				a.download = "workout_log.png";
 				a.click();
-				document.body.removeChild(img);
+				//document.body.removeChild(img);
          		// Now browser starts downloading it instead of just showing it
          		//var newData = imgageData.replace(/^data:image\/png/, "data:application/octet-stream");
          		//$("#btn-download").attr("download", "your_pic_name.png").attr("href", newData);
