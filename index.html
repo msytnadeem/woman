@@ -6,6 +6,7 @@
       <script src="jquery.js"></script>
       <script src="html2canvas.js"></script>
       <meta class="foundation-mq">
+	  <meta http-equiv="content-type" content="text/html; charset=UTF8">
    </head>
    <body style="padding:20px;background-color: #e5eff1;">
       <div class="grid-y" style="height: 100%;max-height: 1500px;">
@@ -14,17 +15,17 @@
          <div class="cell large-10 medium-11">
             <div class="grid-y web-mobile-toggler" style="width: 100%;height: 100%;">
                <div class="cell large-6 medium-4 grid-y align-center" style="padding: 70px;">
-                  <div style="color: #004c7a;font-size: 72px" clas="cell medium-2">شاركِ معنا تجربتك و إنجازاتك</div>
-                  <div style="color: #004c7a;font-size: 32px;padding-top: 52px;padding-bottom: 52px;" clas="cell medium-2">عبري عن مشاعرك في يوم المرأة العالمي على التصميم المرفق ثم اضغطي على زر التحميل و شاركيها على مواقع التواصل الإجتماعي</div>
+                  <div style="color: #004c7a;font-size: 72px" clas="cell medium-2">شاركي معنا تجربتك و إنجازاتك..</div>
+                  <div style="color: #004c7a;font-size: 32px;padding-top: 52px;padding-bottom: 52px;" clas="cell medium-2">عبري عن مشاعرك في يوم المرأة العالمي على القالب المرفق ثم النقر على زر التحميل و شاركيها على مواقع التواصل الإجتماعي</div>
                </div>
                <div class="cell large-6 medium-8 align-middle" >
                   <div class="cell medium-12 main-holder grid-x">
                      <div class="cell large-1 medium-1" ></div>
                      <div class="cell large-9 medium-9 grid-y" style="height: 100%;">
                         <div class="cell large-2 medium-2"></div>
-                        <div class="cell large-2 medium-2 editable-div" data-placeholder="<إكتب إسمك هنا>" contenteditable="true">
+                        <div class="cell large-2 medium-2 editable-div" data-placeholder="<أكتبي اسمك هنا>" contenteditable="true">
                         </div>
-                        <div class="cell large-6 medium-6 editable-div" data-placeholder="<إكتب انجازاتك هنا و ادعم المرأة>"  contenteditable="true">
+                        <div class="cell large-6 medium-6 editable-div" data-placeholder="<أكتبي انجازاتك هنا و ادعمي المرأة>"  contenteditable="true">
                         </div>
                         <div class="cell large-2 medium-2"></div>
                      </div>
@@ -80,14 +81,25 @@
 		$("#btn-Convert-Html2Image").on('click', function (e) {
          	e.preventDefault()
 			$('.editable-div').attr('contenteditable', false);
+			$('.editable-div').html()
          	var element = $(".main-holder")[0];
          	html2canvas(element).then(canvas => {
          		canvas.direction = 'rtl';
          		var imgageData = canvas.toDataURL("image/png");
+				var img = new Image();
+				img.crossOrigin = "Anonymous";
+				img.id = "getshot";
+				img.src = imgageData;
+				document.body.appendChild(img);
+				var a = document.createElement("a");
+				a.href = getshot.src;
+				a.download = "workout_log.png";
+				a.click();
+				document.body.removeChild(img);
          		// Now browser starts downloading it instead of just showing it
-         		var newData = imgageData.replace(/^data:image\/png/, "data:application/octet-stream");
-         		$("#btn-download").attr("download", "your_pic_name.png").attr("href", newData);
-         		setTimeout($("#btn-download")[0].click(), 2000);
+         		//var newData = imgageData.replace(/^data:image\/png/, "data:application/octet-stream");
+         		//$("#btn-download").attr("download", "your_pic_name.png").attr("href", newData);
+         		//setTimeout($("#btn-download")[0].click(), 2000);
          		$('.editable-div').attr('contenteditable', true);
          	});
          });
