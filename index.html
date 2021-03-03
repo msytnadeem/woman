@@ -4,7 +4,8 @@
       <link href="https://db.onlinewebfonts.com/c/d78f5d2c76185fa07aaf8dd729eef33e?family=DIN+Next+LT+Arabic" rel="stylesheet" type="text/css">
       <link rel="stylesheet" href="assets/css/main.css">
       <script src="jquery.js"></script>
-      <script src="html2canvas.js"></script>
+      
+	  <script src="https://cdn.rawgit.com/tsayen/dom-to-image/bfc00a6c5bba731027820199acd7b0a6e92149d8/dist/dom-to-image.min.js"></script>
       <meta class="foundation-mq">
 	  <meta http-equiv="content-type" content="text/html; charset=UTF8">
    </head>
@@ -22,13 +23,13 @@
                   <div class="cell medium-12 main-holder grid-x">
                      <div class="cell large-1 medium-1" ></div>
                      <div class="cell large-9 medium-9 grid-y" style="height: 100%;">
-                        <div class="cell large-2 medium-2"></div>
-						<div class="cell large-6 medium-6 editable-div" data-placeholder="<أكتبي انجازاتك هنا و ادعمي المرأة>"  contenteditable="true">
+                        <div class="cell large-3 medium-2"></div>
+						<div class="cell large-5 medium-6 editable-div" data-placeholder="<أكتبي انجازاتك هنا و ادعمي المرأة>"  contenteditable="true">
                         </div>
-                        <div class="cell large-2 medium-2 editable-div" data-placeholder="<أكتبي اسمك هنا>" contenteditable="true">
+                        <div class="cell large-1 medium-2 editable-div" data-placeholder="<أكتبي اسمك هنا>" contenteditable="true">
                         </div>
                         
-                        <div class="cell large-2 medium-2"></div>
+                        <div class="cell large-3 medium-2"></div>
                      </div>
                      <div class="cell large-1 medium-2" style="height: 100%;"></div>
                   </div>
@@ -78,32 +79,34 @@
 			value === '' && (e.target.innerHTML = placeholder2);
 		});
 
-
+		 
 		$("#btn-Convert-Html2Image").on('click', function (e) {
          	e.preventDefault()
 			$('.editable-div').attr('contenteditable', false);
-			$('.editable-div').html()
          	var element = $(".main-holder")[0];
-         	html2canvas(element).then(canvas => {
-         		canvas.direction = 'rtl';
-         		var imgageData = canvas.toDataURL("image/png");
-				var img = new Image();
-				img.crossOrigin = "Anonymous";
-				img.id = "getshot";
-				img.src = imgageData;
-				document.body.appendChild(img);
+			domtoimage.toBlob(element,{useCORS:true}).then(function (blob) {
+			var reader = new window.FileReader();
+	 		reader.readAsDataURL(blob); 
+	 		reader.onloadend = function() {
+	        	base64data = reader.result; 
+	        	               
+	        	var img = new Image();
+				img.setAttribute('crossOrigin', 'anonymous');
+				img.src = base64data;
 				var a = document.createElement("a");
-				a.href = getshot.src;
-				a.download = "workout_log.png";
+				a.href = img.src;
+				a.download = "woman_day.png";
 				a.click();
-				//document.body.removeChild(img);
-         		// Now browser starts downloading it instead of just showing it
-         		//var newData = imgageData.replace(/^data:image\/png/, "data:application/octet-stream");
-         		//$("#btn-download").attr("download", "your_pic_name.png").attr("href", newData);
-         		//setTimeout($("#btn-download")[0].click(), 2000);
-         		$('.editable-div').attr('contenteditable', true);
-         	});
-         });
+				$('.editable-div').attr('contenteditable', true);
+				//document.body.appendChild(img);
+	  		}
+	        //window.saveAs(blob, 'my-node.png');
+	    }).catch(function (error) {
+			console.error('oops, something went wrong!', error);
+			alert(error);
+		});
+ });
+		
 
 			function unescapeHtml(safe) {
 				return safe.replace(/&amp;/g, '&')
