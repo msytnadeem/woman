@@ -23,13 +23,13 @@
                   <div class="cell medium-12 main-holder grid-x">
                      <div class="cell large-1 medium-1" ></div>
                      <div class="cell large-9 medium-9 grid-y" style="height: 100%;">
-                        <div class="cell large-3 medium-2"></div>
-						<div class="cell large-5 medium-6 editable-div" data-placeholder="<أكتبي انجازاتك هنا و ادعمي المرأة>"  contenteditable="true">
+                        <div class="cell large-3 medium-3"></div>
+						<div class="cell large-5 medium-5 editable-div" data-placeholder="<أكتبي انجازاتك هنا و ادعمي المرأة>"  contenteditable="true">
                         </div>
-                        <div class="cell large-1 medium-2 editable-div" data-placeholder="<أكتبي اسمك هنا>" contenteditable="true">
+                        <div class="cell large-1 medium-1 editable-div" data-placeholder="<أكتبي اسمك هنا>" contenteditable="true">
                         </div>
                         
-                        <div class="cell large-3 medium-2"></div>
+                        <div class="cell large-3 medium-3"></div>
                      </div>
                      <div class="cell large-1 medium-2" style="height: 100%;"></div>
                   </div>
@@ -39,15 +39,18 @@
 		<div class="grid-x cell large-1 medium-1 align-center align-middle">
 					
 		<div class="cell medium-2">
-				<a id="btn-Convert-Html2Image" class="button large" href="#">حملي مشاركتك الأن</a>
-				<a id="btn-download" style="display:none" href="#" download="your_pic_name.png">Download2</a>
+				<a id="btn-Convert-Html2Image" data-open="exampleModal1" class="button large" href="#">حملي مشاركتك الأن</a>
 			</div>
-            
          </div>
+		 
+
       </div>
+		 	  <div class="reveal" id="exampleModal1" data-reveal>
+				Loading...
+	</div> 
       <script type="text/javascript">
 	  $(document).ready(function(){
-		
+	$(document).foundation();
 	  var widthscreen = screen.width;
 	  var heightscreen = screen.height;
 	  
@@ -93,12 +96,14 @@
 	        	var img = new Image();
 				img.setAttribute('crossOrigin', 'anonymous');
 				img.src = base64data;
+				//document.body.appendChild(img);
 				var a = document.createElement("a");
 				a.href = img.src;
 				a.download = "woman_day.png";
-				a.click();
-				$('.editable-div').attr('contenteditable', true);
-				//document.body.appendChild(img);
+				setTimeout(function(){
+					a.click();
+					$('.editable-div').attr('contenteditable', true);
+				}, 1000);
 	  		}
 	        //window.saveAs(blob, 'my-node.png');
 	    }).catch(function (error) {
